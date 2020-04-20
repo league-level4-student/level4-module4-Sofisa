@@ -36,8 +36,8 @@ public class EncapsulationTest {
 		EncapsulateTheData encapsulate = new EncapsulateTheData();
 		encapsulate.setMemberObj(5);
 		assertEquals(5,encapsulate.getMemberObj());
-		encapsulate.setMemberObj("hello");
-		assertFalse(encapsulate.getMemberObj() instanceof String);
+		//encapsulate.setMemberObj("hello");
+		//assertFalse(encapsulate.getMemberObj() instanceof String);
 		
 	}
 	
