@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,10 +18,23 @@ public class PolymorphWindow extends JPanel implements ActionListener{
     private JFrame window;
     private Timer timer;
     
-    Polymorph bluePoly;
+    //delete polymorph
+   // Polymorph bluePoly;
+    Polymorph redPoly;
+    Polymorph movePoly;
+    
+   
     
     public static void main(String[] args) {
    	 new PolymorphWindow().buildWindow();
+   	 
+   	 ArrayList <Polymorph> poly = new ArrayList <Polymorph>();
+   	 poly.add(bluePoly);
+     
+   	 
+   	 for (Polymorph bluePoly : poly) {
+		
+	}
     }
     
     public void buildWindow(){
@@ -31,8 +45,9 @@ public class PolymorphWindow extends JPanel implements ActionListener{
    	 window.pack();
    	 window.setVisible(true);
    	 
-   	 bluePoly = new BluePolymorph(50, 50);
-   	 
+   	 bluePoly = new BluePolymorph(100, 30, 50, 50);
+   	 redPoly = new RedPolymorph(20, 20, 50, 50);
+   	 movePoly = new MovingMorph(40,40,50,50);
    	 timer = new Timer(1000 / 30, this);
    	 timer.start();
     }
@@ -44,12 +59,15 @@ public class PolymorphWindow extends JPanel implements ActionListener{
    	
    	 //draw polymorph
    	 bluePoly.draw(g);
+   	 redPoly.draw(g);
+   	 movePoly.draw(g);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
    	 repaint();
    	 bluePoly.update();
-   	 
+   	 redPoly.update();
+   	 movePoly.updateMove();
     }
 }
