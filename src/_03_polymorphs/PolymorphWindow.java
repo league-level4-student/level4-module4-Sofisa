@@ -5,49 +5,49 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class PolymorphWindow extends JPanel implements ActionListener{
+public class PolymorphWindow extends JPanel implements ActionListener, MouseMotionListener{
     public static final int WIDTH = 900;
     public static final int HEIGHT = 600;
     
     private JFrame window;
     private Timer timer;
     
-    //delete polymorph
-   // Polymorph bluePoly;
-    Polymorph redPoly;
-    Polymorph movePoly;
     
-   
+    ArrayList <Polymorph> poly = new ArrayList <Polymorph>();
+  	
     
     public static void main(String[] args) {
    	 new PolymorphWindow().buildWindow();
-   	 
-   	 ArrayList <Polymorph> poly = new ArrayList <Polymorph>();
-   	 poly.add(bluePoly);
-     
-   	 
-   	 for (Polymorph bluePoly : poly) {
-		
-	}
+      	 
+   	
     }
     
     public void buildWindow(){
    	 window = new JFrame("IT'S MORPHIN' TIME!");
    	 window.add(this);
+   	 window.addMouseMotionListener(this);
    	 window.getContentPane().setPreferredSize(new Dimension(500, 500));
    	 window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
    	 window.pack();
    	 window.setVisible(true);
    	 
-   	 bluePoly = new BluePolymorph(100, 30, 50, 50);
-   	 redPoly = new RedPolymorph(20, 20, 50, 50);
-   	 movePoly = new MovingMorph(40,40,50,50);
+   	 
+   	 
+   	 //where to add
+   	 poly.add(new BluePolymorph(100,30,50,50));
+  	 poly.add(new RedPolymorph(20,20,50,50));
+  	 poly.add(new MovingMorph(40,40,50,50));
+  	 poly.add(new CirclePolymorph(250,250,50,50));
+  	 poly.add(new MessageMorph(30,100,50,50));
+   
    	 timer = new Timer(1000 / 30, this);
    	 timer.start();
     }
@@ -58,16 +58,34 @@ public class PolymorphWindow extends JPanel implements ActionListener{
    	 g.fillRect(0, 0, 500, 500);
    	
    	 //draw polymorph
-   	 bluePoly.draw(g);
-   	 redPoly.draw(g);
-   	 movePoly.draw(g);
+   	 for (Polymorph diffPoly : poly) {
+		diffPoly.draw(g);
+		
+	}
+   	 
+   	 
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
    	 repaint();
-   	 bluePoly.update();
-   	 redPoly.update();
-   	 movePoly.updateMove();
+   	 for (Polymorph diffPoly : poly) {
+   		 diffPoly.update();
+	}
+   	
+   
     }
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+		
+	}
 }
